@@ -2,27 +2,27 @@
 import PackageDescription
 
 let package = Package(
-    name: "CapacitorCommunityYoutubeDl",
+    name: "AudioClient",
     platforms: [.iOS(.v14)],
     products: [
         .library(
-            name: "CapacitorCommunityYoutubeDl",
-            targets: ["YoutubeDownloaderPlugin"])
+            name: "AudioClient",
+            targets: ["AudioClientPlugin"])
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "7.0.0")
     ],
     targets: [
         .target(
-            name: "YoutubeDownloaderPlugin",
+            name: "AudioClientPlugin",
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm")
             ],
-            path: "ios/Sources/YoutubeDownloaderPlugin"),
+            path: "ios/Sources/AudioClientPlugin"),
         .testTarget(
-            name: "YoutubeDownloaderPluginTests",
-            dependencies: ["YoutubeDownloaderPlugin"],
-            path: "ios/Tests/YoutubeDownloaderPluginTests")
+            name: "AudioClientPluginTests",
+            dependencies: ["AudioClientPlugin"],
+            path: "ios/Tests/AudioClientPluginTests")
     ]
 )

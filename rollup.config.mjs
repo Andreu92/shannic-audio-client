@@ -4,7 +4,7 @@ export default {
     {
       file: 'dist/plugin.js',
       format: 'iife',
-      name: 'capacitorYoutubeDownloader',
+      name: 'capacitorAudioClient',
       globals: {
         '@capacitor/core': 'capacitorExports',
       },

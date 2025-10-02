@@ -1,12 +1,12 @@
 import XCTest
-@testable import YoutubeDownloaderPlugin
+@testable import AudioClientPlugin
 
-class YoutubeDownloaderTests: XCTestCase {
+class AudioClientTests: XCTestCase {
     func testEcho() {
         // This is an example of a functional test case for a plugin.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 
-        let implementation = YoutubeDownloader()
+        let implementation = AudioClient()
         let value = "Hello, World!"
         let result = implementation.echo(value)
 

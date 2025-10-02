@@ -5,14 +5,14 @@ import Capacitor
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
-@objc(YoutubeDownloaderPlugin)
-public class YoutubeDownloaderPlugin: CAPPlugin, CAPBridgedPlugin {
-    public let identifier = "YoutubeDownloaderPlugin"
-    public let jsName = "YoutubeDownloader"
+@objc(AudioClientPlugin)
+public class AudioClientPlugin: CAPPlugin, CAPBridgedPlugin {
+    public let identifier = "AudioClientPlugin"
+    public let jsName = "AudioClient"
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise)
     ]
-    private let implementation = YoutubeDownloader()
+    private let implementation = AudioClient()
 
     @objc func echo(_ call: CAPPluginCall) {
         let value = call.getString("value") ?? ""

@@ -1,10 +1,10 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { YoutubeDownloaderPlugin } from './definitions';
+import type { AudioClientPlugin } from './definitions';
 
-const YoutubeDownloader = registerPlugin<YoutubeDownloaderPlugin>('YoutubeDownloader', {
-  web: () => import('./web').then((m) => new m.YoutubeDownloaderWeb()),
+const AudioClient = registerPlugin<AudioClientPlugin>('AudioClient', {
+  web: () => import('./web').then((m) => new m.AudioClientWeb()),
 });
 
 export * from './definitions';
-export { YoutubeDownloader };
+export { AudioClient };

@@ -2,5 +2,5 @@
 include ':capacitor-android'
 project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
 
-include ':capacitor-community-youtube-dl'
-project(':capacitor-community-youtube-dl').projectDir = new File('../../android')
+include ':shannic-audio-client'
+project(':shannic-audio-client').projectDir = new File('../../android')
