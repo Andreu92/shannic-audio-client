@@ -57,14 +57,16 @@ search(options: { query: string; next_token?: string | null; }) => Promise<Searc
 
 #### Audio
 
-| Prop             | Type                     |
-| ---------------- | ------------------------ |
-| **`id`**         | <code>string</code>      |
-| **`title`**      | <code>string</code>      |
-| **`author`**     | <code>string</code>      |
-| **`thumbnails`** | <code>Thumbnail[]</code> |
-| **`duration`**   | <code>number</code>      |
-| **`url`**        | <code>string</code>      |
+| Prop                 | Type                                                             |
+| -------------------- | ---------------------------------------------------------------- |
+| **`id`**             | <code>string</code>                                              |
+| **`title`**          | <code>string</code>                                              |
+| **`author`**         | <code>string</code>                                              |
+| **`thumbnails`**     | <code>Thumbnail[]</code>                                         |
+| **`duration`**       | <code>number</code>                                              |
+| **`url`**            | <code>string</code>                                              |
+| **`expirationDate`** | <code>number</code>                                              |
+| **`colors`**         | <code>{ background: string; text: string; body: string; }</code> |
 
 
 #### Thumbnail

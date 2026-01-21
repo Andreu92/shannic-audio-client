@@ -2,7 +2,10 @@ package com.andreu92.plugins.audioclient;
 
 import static android.content.ContentValues.TAG;
 
+import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.graphics.Bitmap;
+import androidx.palette.graphics.Palette;
 
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
@@ -15,8 +18,13 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.JSObject;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -94,11 +102,51 @@ public class AudioClient extends Plugin {
             try {
                 PyObject result = pythonModule.callAttr("get", id);
                 JSONObject audio = new JSONObject(result.toString());
+
+                JSONArray thumbnails = audio.getJSONArray("thumbnails");
+                JSONObject thumbnail = thumbnails.getJSONObject(thumbnails.length() - 1);
+
+                String src = thumbnail.getString("url");
+
+                JSONObject colors = getColors(src);
+
+                audio.put("colors", colors);
+
                 JSObject response = JSObject.fromJSONObject(audio);
                 call.resolve(response);
             } catch (Exception e) {
                 call.reject("Error extracting audio URL");
             }
         });
+    }
+
+    private JSONObject getColors(String src) throws IOException, JSONException {
+        URL url = new URL(src);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+        connection.setDoInput(true);
+        connection.connect();
+        InputStream stream = connection.getInputStream();
+        Bitmap bitmap = BitmapFactory.decodeStream(stream);
+
+        Palette palette = Palette.from(bitmap).generate();
+
+        Palette.Swatch swatch =
+            palette.getVibrantSwatch() != null ? palette.getVibrantSwatch() :
+            palette.getLightVibrantSwatch() != null ? palette.getLightVibrantSwatch() :
+            palette.getDarkVibrantSwatch() != null ? palette.getDarkVibrantSwatch() :
+            palette.getMutedSwatch() != null ? palette.getMutedSwatch() :
+            palette.getLightMutedSwatch() != null ? palette.getLightMutedSwatch() :
+            palette.getDarkMutedSwatch();
+
+        JSONObject colors = new JSONObject();
+
+        if (swatch == null) return null;
+
+        colors.put("background", String.format("#%06X", (0xFFFFFF & swatch.getRgb())));
+        colors.put("title", String.format("#%06X", (0xFFFFFF & swatch.getTitleTextColor())));
+        colors.put("body", String.format("#%06X", (0xFFFFFF & swatch.getBodyTextColor())));
+
+        return colors;
     }
 }

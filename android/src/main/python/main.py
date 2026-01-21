@@ -1,3 +1,4 @@
+from urllib.parse import urlparse, parse_qs
 import json
 import innertube
 
@@ -61,7 +62,7 @@ def search(query: str, next_token: str = None, max_results: int = 20):
 
     return json.dumps(search_data)
 
-def get(video_id: str) -> str:
+def get(video_id: str) -> dict:
     client = innertube.InnerTube("ANDROID")
     player = client.player(video_id)
 
@@ -79,6 +80,8 @@ def get(video_id: str) -> str:
     ]
 
     best_audio = max(audio_streams, key=lambda x: x["bitrate"])
+    parsed_url = urlparse(best_audio["url"])
+    query_params = parse_qs(parsed_url.query)
 
     return json.dumps({
         "id": video_id,
@@ -86,5 +89,6 @@ def get(video_id: str) -> str:
         "author": details["author"],
         "duration": int(best_audio["duration"]),
         "thumbnails": details["thumbnail"]["thumbnails"],
-        "url": best_audio["url"]
+        "url": best_audio["url"],
+        "expirationDate": int(query_params['expire'][0]) * 1000
     })

@@ -1,27 +1,33 @@
 interface Thumbnail {
-  url: string;
-  height: number;
-  width: number;
+  url: string,
+  height: number,
+  width: number
 }
 
 export interface Search {
-  next_token: string | null;
+  next_token: string | null,
   results: {
-    id: string;
-    title: string;
-    author: string;
-    thumbnails: Thumbnail[];
-    duration: string;
-  }[];
+    id: string,
+    title: string,
+    author: string,
+    thumbnails: Thumbnail[],
+    duration: string
+  }[]
 }
 
 export interface Audio {
-  id: string;
-  title: string;
-  author: string;
-  thumbnails: Thumbnail[];
-  duration: number;
-  url: string;
+  id: string,
+  title: string,
+  author: string,
+  thumbnails: Thumbnail[],
+  duration: number,
+  url: string,
+  expirationDate: number,
+  colors?: {
+    background: string,
+    text: string,
+    body: string
+  }
 }
 
 export interface AudioClientPlugin {
